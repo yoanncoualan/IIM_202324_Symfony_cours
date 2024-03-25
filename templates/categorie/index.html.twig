@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategorieController!{% endblock %}
+
+{% block body %}
+
+<h1>Catégories</h1>
+
+{% for c in categories %}
+    <p>{{ c.nom }}</p>
+    <p>
+        <a href="{{path('app_categorie_show', {id: c.id})}}">Afficher</a>
+        <br/>
+        <a href="{{path('app_categorie_delete', {id: c.id})}}" class="btn btn-danger">Supprimer</a>
+    </p>
+    <hr/>
+{% else %}
+    <p>Il n'y a aucune catégorie</p>
+{% endfor %}
+
+<h2>Ajouter une catégorie</h2>
+{{ form(form_ajout) }}
+
+{% endblock %}
