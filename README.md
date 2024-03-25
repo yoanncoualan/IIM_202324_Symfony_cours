@@ -1,6 +1,6 @@
 # Cours Symfony 7
 
-[Support de cours](../blob/main/Symfony.pdf)
+[Support de cours](Symfony.pdf)
 
 ## Cloner un repo Symfony
 
