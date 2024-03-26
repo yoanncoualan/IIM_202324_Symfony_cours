@@ -9,11 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CategorieController extends AbstractController
 {
     #[Route('/categorie', name: 'app_categorie')]
-    public function index(EntityManagerInterface $em, Request $request): Response
+    public function index(EntityManagerInterface $em, Request $request, TranslatorInterface $t): Response
     {
         // Création d'un objet vide pour le formulaire
         $categorie = new Categorie();
@@ -28,7 +30,7 @@ class CategorieController extends AbstractController
             $em->persist($categorie); // Prepare en PDO
             $em->flush(); // Execute
 
-            $this->addFlash('success', 'Catégorie ajoutée');
+            $this->addFlash('success', $t->trans('category.added'));
 
             // Redirige vers la liste des catégories pour qu'il recharge la liste des catégories
             return $this->redirectToRoute('app_categorie');
@@ -71,6 +73,7 @@ class CategorieController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/categorie/{id}/delete', name: 'app_categorie_delete')]
     public function delete(Categorie $categorie, EntityManagerInterface $em)
     {

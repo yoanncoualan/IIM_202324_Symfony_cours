@@ -4,14 +4,19 @@
 
 {% block body %}
 
-<h1>Catégories</h1>
+<h1>{{'category.title'|trans}}</h1>
+<p>{{ 'category.nb'|trans({'X': categories|length}) }}</p>
 
 {% for c in categories %}
     <p>{{ c.nom }}</p>
     <p>
-        <a href="{{path('app_categorie_show', {id: c.id})}}">Afficher</a>
+        <a href="{{path('app_categorie_show', {id: c.id})}}">
+            {{ 'show'|trans }}
+        </a>
         <br/>
-        <a href="{{path('app_categorie_delete', {id: c.id})}}" class="btn btn-danger">Supprimer</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{path('app_categorie_delete', {id: c.id})}}" class="btn btn-danger">Supprimer</a>
+        {% endif %}
     </p>
     <hr/>
 {% else %}

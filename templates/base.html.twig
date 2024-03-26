@@ -25,6 +25,8 @@
             </ul>
         </nav>
 
+        {{dump(app.user)}}
+
         {% for type, messages in app.flashes %}
             {% for m in messages %}
                 <p class="alert alert-{{type}}">{{m}}</p>
