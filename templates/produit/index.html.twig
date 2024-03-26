@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProduitController!{% endblock %}
+
+{% block body %}
+<h1>Liste des produits</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Catégorie</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in produits %}
+            <tr>
+                <td>{{ p.nom }}</td>
+                <td>{{ p.description }}</td>
+                <td>{{ p.prix }}€</td>
+                <td>{{ p.qte }}</td>
+                <td>{{ p.categorie.nom }}</td>
+                <td>
+                    <a href="{{path('app_produit_show', {id: p.id})}}" class="btn btn-primary">Afficher</a>
+                    <a href="{{path('app_produit_delete', {id: p.id})}}" class="btn btn-danger">Suprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Il n'y a aucun produit</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Ajouter un produit</h2>
+{{ form(ajout_produit) }}
+{% endblock %}
